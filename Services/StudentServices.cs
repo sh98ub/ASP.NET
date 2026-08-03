@@ -17,5 +17,12 @@ namespace StudentManagement.Services
             return _context.Students.ToList();
             
         }
+
+        public Student AddStudent(Student student)
+        {
+            _context.Students.Add(student);
+            _context.SaveChanges();
+            return student;
+        }
     }
 }
