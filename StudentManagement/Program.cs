@@ -2,6 +2,7 @@ using StudentManagement.Services;
 using StudentManagement.Interfaces;
 using StudentManagement.Data;
 using Microsoft.EntityFrameworkCore;
+using StudentManagement.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IStudentService, StudentServices>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddDbContext<StudentDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 

@@ -1,21 +1,37 @@
-﻿using StudentManagement.Entities;
+using StudentManagement.Entities;
 using StudentManagement.Interfaces;
 using StudentManagement.Data;
+using Microsoft.EntityFrameworkCore;
 namespace StudentManagement.Services
 {
-    public class StudentServices:IStudentService
+    public class StudentServices : IStudentService
     {
-        private readonly StudentDbContext _context;
+        private readonly IStudentRepository _repository;
 
-        public StudentServices(StudentDbContext context)
+        public StudentServices(IStudentRepository repository)
         {
-            _context = context;
+            _repository = repository;
+
         }
 
-        public List<Student> GetStudents( )
+        public async Task<List<Student>> GetStudents()
         {
-            return _context.Students.ToList();
-            
+            return await _repository.GetAllStudents();
+
+        }
+
+        public async Task<Student> AddStudent(Student student)
+        {
+            await _repository.AddStudent(student);
+            return student;
+        }
+
+      
+            public async Task<Student?> GetStudentById(int id)
+        {
+            return await _repository.GetStudentById(id);
         }
     }
 }
+    
+ 
